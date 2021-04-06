@@ -63,6 +63,21 @@ class RustPlugin {
     // and this plugin being installed, it will be excluded anyway.
     // Therefore, the filtering can be disabled to speed up (~3.2s) the process.
     this.serverless.service.package.excludeDevDependencies = false;
+
+    const rustCustomPropSchema = {
+      type: 'object',
+      properties: {
+        cargoFlags: { type: 'string' },
+        dockerPath: { type: 'string' },
+        dockerTag: { type: 'string' },
+        dockerImage: { type: 'string' },
+        dockerless: { type: 'boolean' },
+      }
+    };
+
+    serverless.configSchemaHandler.defineCustomProperties(rustCustomPropSchema);
+
+
   }
 
   localBuildArgs(funcArgs, cargoPackage, binary, profile, platform) {
